@@ -25,10 +25,10 @@ class ClusterType(Enum):
 
 
 def _guess_cluster_type() -> ClusterType:
-    uname = os.uname()
+    uname = os.getlogin()
     fqdn = socket.getfqdn()
-    if uname.sysname == "Linux" and (uname.release.endswith("-aws") or ".ec2" in fqdn):
-        return ClusterType.AWS
+    # if uname.sysname == "Linux" and (uname.release.endswith("-aws") or ".ec2" in fqdn):
+    #     return ClusterType.AWS
 
     if fqdn.endswith(".fair"):
         return ClusterType.FAIR
@@ -36,8 +36,8 @@ def _guess_cluster_type() -> ClusterType:
     if fqdn.endswith(".facebook.com"):
         return ClusterType.RSC
 
-    if uname.sysname == "Darwin":
-        return ClusterType.LOCAL_DARWIN
+    # if uname.sysname == "Darwin":
+    #     return ClusterType.LOCAL_DARWIN
 
     return ClusterType.DEFAULT
 
